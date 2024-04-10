@@ -1,0 +1,42 @@
+
+---
+- hosts: all 
+  become: yes
+  
+  tasks:
+    - name: Update APT
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install python-apt
+      apt:
+        name: python-apt
+        state: present
+
+    - name: Install Apache2
+      apt:
+        name: apache2
+        state: present
+    
+    - name: Copy file
+      copy:
+        src: /home/essexi285/ijessex42-csc2510-infrastructure/apache2.conf
+        dest: /home/essexi285/ijessex42-csc2510-infrastructure/dir/config
+        mode: '0644'
+
+    - name: Copy file
+      copy: 
+        src: /home/essexi285/ijessex42-csc2510-infrastructure/index.html
+        dest: /home/essexi285/ijessex42-csc2510-infrastructure/dir/site
+        mode: '0644'
+
+    - name: Create Symbolic Link
+      file:
+        src: /etc/apache2/mods-available/headers.load
+        dest: /etc/apache2/mods-enabled/headers.load
+        state: link
+
+    - name: Restart Apache2
+      service:
+        name: apache2
+        state: restarted
