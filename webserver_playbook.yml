@@ -19,15 +19,19 @@
         state: present
     
     - name: Copy file
-      copy:
-        src: /home/essexi285/ijessex42-csc2510-infrastructure/apache2.conf
-        dest: /home/essexi285/ijessex42-csc2510-infrastructure/dir/config
+      ansible.builtin.copy:
+        src: /home/essexi285/test/ijessex42-csc2510-infrastructure/config/apache2.conf
+        dest: /home/essexi285/test/ijessex42-csc2510-infrastructure/files/config/apache2.conf
+        owner: root
+        group: root
         mode: '0644'
 
     - name: Copy file
-      copy: 
-        src: /home/essexi285/ijessex42-csc2510-infrastructure/index.html
-        dest: /home/essexi285/ijessex42-csc2510-infrastructure/dir/site
+      ansible.builtin.copy: 
+        src: /home/essexi285/test/ijessex42-csc2510-infrastructure/site/index.html
+        dest: /home/essexi285/test/ijessex42-csc2510-infrastructure/files/site/index.html
+        owner: root
+        group: root        
         mode: '0644'
 
     - name: Create Symbolic Link
